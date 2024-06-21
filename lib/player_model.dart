@@ -18,17 +18,4 @@ class  Player {
   }
 }
 
-class Coach {
-  final String name;
-
-  Coach({
-    required this.name,
-  });
-
-  factory Coach.fromJson(Map<String, dynamic> json) {
-    return Coach(
-      name: json['name'] ?? 'Unknown', // Utilisez une valeur par défaut si nécessaire
-    );
-  }
-}
 

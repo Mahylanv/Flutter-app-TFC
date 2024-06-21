@@ -1,3 +1,5 @@
+// players_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,46 +10,31 @@ class PlayersPage extends StatelessWidget {
   const PlayersPage({Key? key}) : super(key: key);
 
   Future<List<Player>> fetchPlayers() async {
-    final String playersUrl = 'https://v3.football.api-sports.io/players/squads?team=96';
-    final String coachUrl = 'https://v3.football.api-sports.io/coachs?team=96';
+    final String apiUrl = 'https://v3.football.api-sports.io/players/squads?team=96';
+
     final String apiKey = 'ec8e2b63cd223b4bb0d30a2f865b4233';
 
-    final responsePlayers = await http.get(
-      Uri.parse(playersUrl),
+    final response = await http.get(
+      Uri.parse(apiUrl),
       headers: {
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': apiKey,
       },
     );
 
-    final responseCoach = await http.get(
-      Uri.parse(coachUrl),
-      headers: {
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-        'x-rapidapi-key': apiKey,
-      },
-    );
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body);
 
-    if (responsePlayers.statusCode == 200 && responseCoach.statusCode == 200) {
-      var playersData = jsonDecode(responsePlayers.body);
-      var coachData = jsonDecode(responseCoach.body);
+      print('Response body: ${response.body}'); // Afficher la réponse brute
+      print('Parsed JSON: $jsonData'); // Afficher les données JSON analysées
 
-      if (playersData != null &&
-          playersData['response'] != null &&
-          playersData['response'].isNotEmpty &&
-          coachData != null &&
-          coachData['response'] != null &&
-          coachData['response'].isNotEmpty) {
+      if (jsonData != null &&
+          jsonData['response'] != null &&
+          jsonData['response'].isNotEmpty) {
         List<Player> players = [];
 
-        // Récupérer le nom du coach
-        var coachName = coachData['response'][0]['coachs'][0]['name'];
-
-        // Ajouter le coach au début de la liste des joueurs
-        players.insert(0, Player(name: coachName, id: 0, photoUrl: ''));
-
-        var teamPlayers = playersData['response'][0]['players'];
-        for (var item in teamPlayers) {
+        var team = jsonData['response'][0]['players']; // Accédez correctement à la liste des joueurs
+        for (var item in team) {
           Player player = Player.fromJson(item);
           players.add(player);
         }
@@ -57,8 +44,7 @@ class PlayersPage extends StatelessWidget {
         throw Exception('Invalid JSON format or empty response');
       }
     } else {
-      throw Exception(
-          'Failed to load players or coach: ${responsePlayers.statusCode}, ${responseCoach.statusCode}');
+      throw Exception('Failed to load players: ${response.statusCode}');
     }
   }
 
@@ -66,7 +52,6 @@ class PlayersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: Text('Football Players'),
       ),
       body: Center(
@@ -84,51 +69,18 @@ class PlayersPage extends StatelessWidget {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   Player player = snapshot.data![index];
-
-                  // Si c'est le coach, afficher différemment
-                  if (index == 0) {
-                    return Column(
-                      children: [
-                        Text(
-                          'Coach:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        ListTile(
-                          title: Text(
-                            player.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Divider(), // Barre de séparation
-                      ],
-                    );
-                  } else {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(player.photoUrl),
-                      ),
-                      title: Text(player.name),
-                    );
-                  }
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(player.photoUrl),
+                    ),
+                    title: Text(player.name),
+                    // subtitle: Text(player.nationality),
+                  );
                 },
               );
             }
           },
         ),
-=======
-        title: Text('Joueurs'),
-      ),
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            title: Text('Player 1'),
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerDetailPage(playerName: 'Player 1')));
-            },
-          ),
-          // Ajoutez d'autres ListTile pour les autres joueurs
-        ],
->>>>>>> 5e161f70e1a8e091884422609d246c32f29c9acc
       ),
     );
   }
