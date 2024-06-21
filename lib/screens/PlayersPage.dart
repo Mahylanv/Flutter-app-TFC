@@ -66,6 +66,7 @@ class PlayersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         title: Text('Football Players'),
       ),
       body: Center(
@@ -114,6 +115,20 @@ class PlayersPage extends StatelessWidget {
             }
           },
         ),
+=======
+        title: Text('Joueurs'),
+      ),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            title: Text('Player 1'),
+            onTap: () {
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerDetailPage(playerName: 'Player 1')));
+            },
+          ),
+          // Ajoutez d'autres ListTile pour les autres joueurs
+        ],
+>>>>>>> 5e161f70e1a8e091884422609d246c32f29c9acc
       ),
     );
   }
