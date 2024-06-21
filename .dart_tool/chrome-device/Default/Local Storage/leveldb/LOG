@@ -1,8 +1,5 @@
-2024/06/21-11:14:59.482 77c0 Reusing MANIFEST C:\Users\marcelli\AppData\Local\Temp\flutter_tools.b9c372af\flutter_tools_chrome_device.bdaad7d4\Default\Local Storage\leveldb/MANIFEST-000001
-2024/06/21-11:14:59.498 77c0 Recovering log #3
-2024/06/21-11:14:59.498 77c0 Recovering log #10
-2024/06/21-11:14:59.502 77c0 Reusing old log C:\Users\marcelli\AppData\Local\Temp\flutter_tools.b9c372af\flutter_tools_chrome_device.bdaad7d4\Default\Local Storage\leveldb/000010.log 
-2024/06/21-11:14:59.503 77c0 Delete type=2 #5
-2024/06/21-11:14:59.503 77c0 Delete type=2 #7
-2024/06/21-11:14:59.504 77c0 Delete type=2 #9
-2024/06/21-11:14:59.504 77c0 Delete type=2 #11
+2024/06/21-15:35:57.966 70f8 Reusing MANIFEST C:\Users\marcelli\AppData\Local\Temp\flutter_tools.64d26dff\flutter_tools_chrome_device.fc6be8b\Default\Local Storage\leveldb/MANIFEST-000001
+2024/06/21-15:35:57.975 70f8 Recovering log #17
+2024/06/21-15:35:57.977 70f8 Reusing old log C:\Users\marcelli\AppData\Local\Temp\flutter_tools.64d26dff\flutter_tools_chrome_device.fc6be8b\Default\Local Storage\leveldb/000017.log 
+2024/06/21-15:35:57.992 70f8 Delete type=0 #11
+2024/06/21-15:35:57.992 70f8 Delete type=0 #13

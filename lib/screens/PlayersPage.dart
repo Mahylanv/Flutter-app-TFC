@@ -1,42 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import '../player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
 
 class PlayersPage extends StatelessWidget {
   const PlayersPage({Key? key}) : super(key: key);
 
+  Future<List<Player>> fetchPlayers() async {
+    final String playersUrl = 'https://v3.football.api-sports.io/players/squads?team=96';
+    final String coachUrl = 'https://v3.football.api-sports.io/coachs?team=96';
+    final String apiKey = 'ec8e2b63cd223b4bb0d30a2f865b4233';
+
+    final responsePlayers = await http.get(
+      Uri.parse(playersUrl),
+      headers: {
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-key': apiKey,
+      },
+    );
+
+    final responseCoach = await http.get(
+      Uri.parse(coachUrl),
+      headers: {
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-key': apiKey,
+      },
+    );
+
+    if (responsePlayers.statusCode == 200 && responseCoach.statusCode == 200) {
+      var playersData = jsonDecode(responsePlayers.body);
+      var coachData = jsonDecode(responseCoach.body);
+
+      if (playersData != null &&
+          playersData['response'] != null &&
+          playersData['response'].isNotEmpty &&
+          coachData != null &&
+          coachData['response'] != null &&
+          coachData['response'].isNotEmpty) {
+        List<Player> players = [];
+
+        // Récupérer le nom du coach
+        var coachName = coachData['response'][0]['coachs'][0]['name'];
+
+        // Ajouter le coach au début de la liste des joueurs
+        players.insert(0, Player(name: coachName, id: 0, photoUrl: ''));
+
+        var teamPlayers = playersData['response'][0]['players'];
+        for (var item in teamPlayers) {
+          Player player = Player.fromJson(item);
+          players.add(player);
+        }
+
+        return players;
+      } else {
+        throw Exception('Invalid JSON format or empty response');
+      }
+    } else {
+      throw Exception(
+          'Failed to load players or coach: ${responsePlayers.statusCode}, ${responseCoach.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100), // Ajustez la hauteur totale de l'AppBar
-        child: Container(
-          padding: EdgeInsets.only(left: 10, top: 30), // Padding seulement en haut
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Espace entre les éléments
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 90, bottom: 80), // Padding autour de l'image
-                  child: Image.asset(
-                    'assets/toulouse_logo.png', // Chemin de votre image
-                    height: 50, // Ajustez la hauteur de l'image
-                    width: 50, // Ajustez la largeur de l'image
-                  ),
-                ),
-                  SizedBox(width: 20), // Espace entre les images
-                Image.asset(
-                  'assets/icon.png', // Chemin de votre deuxième image
-                  height: 50, // Ajustez la hauteur de la deuxième image
-                  width: 50, // Ajustez la largeur de la deuxième image
-                ),
-              ],
-            ),
-          ),
-        ),
+      appBar: AppBar(
+        title: Text('Football Players'),
       ),
-       extendBodyBehindAppBar: true,
-       
+      body: Center(
+        child: FutureBuilder<List<Player>>(
+          future: fetchPlayers(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Text('No players found');
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  Player player = snapshot.data![index];
+
+                  // Si c'est le coach, afficher différemment
+                  if (index == 0) {
+                    return Column(
+                      children: [
+                        Text(
+                          'Coach:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        ListTile(
+                          title: Text(
+                            player.name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Divider(), // Barre de séparation
+                      ],
+                    );
+                  } else {
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(player.photoUrl),
+                      ),
+                      title: Text(player.name),
+                    );
+                  }
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
