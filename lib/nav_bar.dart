@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/HomePage.dart';
-import 'screens/PlayersPage.dart';
+import 'pages/PlayersPage.dart';
 // import 'screens/CoachPage.dart';
 import 'screens/NewsPage.dart';
 

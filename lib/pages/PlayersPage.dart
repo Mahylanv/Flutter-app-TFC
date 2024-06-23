@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
+import '../models/player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
+// import '../models/all_details.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
+import './PlayerDetailsPage.dart'; // Importez la page des détails du joueur
 
 class PlayersPage extends StatelessWidget {
   const PlayersPage({Key? key}) : super(key: key);
@@ -173,24 +175,31 @@ class PlayersPage extends StatelessWidget {
                         (index > 5 ? 1 : 0) -
                         (index > 16 ? 1 : 0) -
                         (index > 27 ? 1 : 0)];
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(player.photoUrl),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlayerDetailsPage(player: player),
                           ),
-                          title: Text(
-                            player.name,
-                            style: TextStyle(
-                              color: Colors
-                                  .white, // Changer la couleur du texte en blanc
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(player.photoUrl),
+                            ),
+                            title: Text(
+                              player.name,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                            height:
-                                10), // Ajouter un espace de 10 pixels entre chaque joueur
-                      ],
+                          SizedBox(height: 10),
+                        ],
+                      ),
                     );
                   }
                 },

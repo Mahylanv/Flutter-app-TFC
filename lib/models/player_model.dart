@@ -1,11 +1,12 @@
-class  Player {
+// lib/models/player_model.dart
+class Player {
   final int id;
   final String name;
-  final String photoUrl; // URL de la photo du joueur
+  final String photoUrl;
 
   Player({
-    required this.name,
     required this.id,
+    required this.name,
     required this.photoUrl,
   });
 
@@ -17,6 +18,3 @@ class  Player {
     );
   }
 }
-
-
-
