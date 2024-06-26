@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'screens/HomePage.dart';
 import 'pages/PlayersPage.dart';
-// import 'screens/CoachPage.dart';
 import 'screens/NewsPage.dart';
+import 'models/player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
 
 class NavBar extends StatefulWidget {
+  final List<Player> players;
+
+  NavBar({required this.players});
+
   @override
   _NavBarState createState() => _NavBarState();
 }
@@ -12,11 +16,17 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 1; // Default selected index is Home (middle tab)
 
-  static const List<Widget> _pages = <Widget>[
-    PlayersPage(),
-    HomePage(),
-    NewsPage(),
-  ];
+  late List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = <Widget>[
+      PlayersPage(players: widget.players),
+      HomePage(),
+      NewsPage(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

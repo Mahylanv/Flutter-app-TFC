@@ -14,7 +14,7 @@ class NewsPage extends StatelessWidget {
           ListTile(
             title: Text('News Article 1'),
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetailPage(newsTitle: 'News Article 1')));
+              // Navigation vers les détails de l'article
             },
           ),
           // Ajoutez d'autres ListTile pour les autres articles
