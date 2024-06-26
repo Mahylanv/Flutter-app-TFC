@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'nav_bar.dart';
-import './pages/PlayersListPage.dart';
+import 'package:edf_flutter/slpash_screen.dart'; // Assurez-vous que le chemin d'accès à votre splash screen est correct
 
 void main() {
   runApp(MyApp());
@@ -14,8 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PlayersListPage(),
-      debugShowCheckedModeBanner: false, 
+      home: SplashScreen(), // Affiche la SplashScreen en premier
+      debugShowCheckedModeBanner: false,
     );
   }
 }

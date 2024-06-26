@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import '../models/player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
-// import '../models/adetails.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
 import './PlayerDetailsPage.dart'; // Importez la page des détails du joueur
 
 class PlayersPage extends StatelessWidget {
@@ -24,9 +22,6 @@ class PlayersPage extends StatelessWidget {
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
-
-      print('Response body: ${response.body}'); // Afficher la réponse brute
-      print('Parsed JSON: $jsonData'); // Afficher les données JSON analysées
 
       if (jsonData != null &&
           jsonData['response'] != null &&
@@ -103,15 +98,16 @@ class PlayersPage extends StatelessWidget {
           future: fetchPlayers(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Text('No players found');
+              return Center(child: Text('No players found'));
             } else {
+              List<Player> players = snapshot.data!;
               return ListView.builder(
-                itemCount: snapshot.data!.length +
-                    3, // Ajouter des espaces pour les en-têtes
+                itemCount:
+                    players.length + 3, // Ajouter des espaces pour les en-têtes
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return Container(
@@ -170,7 +166,7 @@ class PlayersPage extends StatelessWidget {
                       ),
                     );
                   } else {
-                    Player player = snapshot.data![index -
+                    Player player = players[index -
                         1 -
                         (index > 5 ? 1 : 0) -
                         (index > 16 ? 1 : 0) -
@@ -180,7 +176,8 @@ class PlayersPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PlayerDetailsPage(player: player),
+                            builder: (context) =>
+                                PlayerDetailsPage(player: player),
                           ),
                         );
                       },
