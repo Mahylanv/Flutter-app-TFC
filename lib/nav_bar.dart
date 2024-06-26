@@ -10,7 +10,7 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedIndex = 1; // Default selected index is Home (middle tab)
+  int _selectedIndex = 2; // Default selected index is Home (middle tab)
 
   static const List<Widget> _pages = <Widget>[
     PlayersPage(),

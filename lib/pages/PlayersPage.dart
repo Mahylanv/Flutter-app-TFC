@@ -12,7 +12,7 @@ class PlayersPage extends StatelessWidget {
   Future<List<Player>> fetchPlayers() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/players/squads?team=96';
-    final String apiKey = 'ec8e2b63cd223b4bb0d30a2f865b4233';
+    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473';
 
     final response = await http.get(
       Uri.parse(apiUrl),

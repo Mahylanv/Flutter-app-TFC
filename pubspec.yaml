@@ -23,3 +23,9 @@ flutter:
     - assets/toulouse_logo.png
     - assets/icon.png
     - assets/logo_rodez.png
+    - assets/temps_jouer.png
+    - assets/rouge.png
+    - assets/jaune.png
+    - assets/but.png
+    - assets/passe.png
+

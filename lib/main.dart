@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'nav_bar.dart';
+import './pages/PlayersListPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NavBar(),
+      home: PlayersListPage(),
       debugShowCheckedModeBanner: false, 
     );
   }
