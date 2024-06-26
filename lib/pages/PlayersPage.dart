@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
-// import '../models/all_details.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
+// import '../models/adetails.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
 import './PlayerDetailsPage.dart'; // Importez la page des détails du joueur
 
 class PlayersPage extends StatelessWidget {
