@@ -1,16 +1,32 @@
+// lib/screens/players_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/player_model.dart'; // Assurez-vous d'importer correctement votre modèle de joueur
-import './PlayerDetailsPage.dart'; // Importez la page des détails du joueur
+import '../screens/About.dart';
+import '../models/player_model.dart';
+import './PlayerDetailsPage.dart';
 
-class PlayersPage extends StatelessWidget {
+class PlayersPage extends StatefulWidget {
   const PlayersPage({Key? key}) : super(key: key);
+
+  @override
+  _PlayersPageState createState() => _PlayersPageState();
+}
+
+class _PlayersPageState extends State<PlayersPage> {
+  late Future<List<Player>> _playersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _playersFuture = fetchPlayers();
+  }
 
   Future<List<Player>> fetchPlayers() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/players/squads?team=96';
-    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473';
+    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -47,32 +63,36 @@ class PlayersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:
-            Size.fromHeight(100), // Ajustez la hauteur totale de l'AppBar
+        preferredSize: Size.fromHeight(100),
         child: Container(
-          padding:
-              EdgeInsets.only(left: 10, top: 30), // Padding seulement en haut
+          padding: EdgeInsets.only(left: 10, top: 30),
           child: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, // Espace entre les éléments
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: 90, bottom: 80), // Padding autour de l'image
+                  padding: EdgeInsets.only(top: 90, bottom: 80),
                   child: Image.asset(
-                    'assets/toulouse_logo.png', // Chemin de votre image
-                    height: 50, // Ajustez la hauteur de l'image
-                    width: 50, // Ajustez la largeur de l'image
+                    'assets/toulouse_logo.png',
+                    height: 50,
+                    width: 50,
                   ),
                 ),
-                SizedBox(width: 20), // Espace entre les images
-                Image.asset(
-                  'assets/icon.png', // Chemin de votre deuxième image
-                  height: 50, // Ajustez la hauteur de la deuxième image
-                  width: 50, // Ajustez la largeur de la deuxième image
+                SizedBox(width: 20),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AboutPage()),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/icon.png', // Chemin de votre deuxième image
+                    height: 50, // Ajustez la hauteur de la deuxième image
+                    width: 50, // Ajustez la largeur de la deuxième image
+                  ),
                 ),
               ],
             ),
@@ -95,7 +115,7 @@ class PlayersPage extends StatelessWidget {
           ),
         ),
         child: FutureBuilder<List<Player>>(
-          future: fetchPlayers(),
+          future: _playersFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -106,96 +126,61 @@ class PlayersPage extends StatelessWidget {
             } else {
               List<Player> players = snapshot.data!;
               return ListView.builder(
-                itemCount:
-                    players.length + 3, // Ajouter des espaces pour les en-têtes
+                itemCount: players.length + 4, // Ajoutez des en-têtes
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.all(15.0),
-                      color: Colors.white,
-                      child: Text(
-                        'Gardiens',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    );
-                  } else if (index == 5) {
-                    return Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.all(15.0),
-                      color: Colors.white,
-                      child: Text(
-                        'Défenseurs',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    );
-                  } else if (index == 16) {
-                    return Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.all(15.0),
-                      color: Colors.white,
-                      child: Text(
-                        'Milieux',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    );
-                  } else if (index == 27) {
-                    return Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.all(15.0),
-                      color: Colors.white,
-                      child: Text(
-                        'Attaquants',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    );
+                    return _buildCategoryHeader('Gardiens');
+                  } else if (index == 6) {
+                    return _buildCategoryHeader('Défenseurs');
+                  } else if (index == 17) {
+                    return _buildCategoryHeader('Milieux');
+                  } else if (index == 28) {
+                    return _buildCategoryHeader('Attaquants');
                   } else {
-                    Player player = players[index -
-                        1 -
-                        (index > 5 ? 1 : 0) -
-                        (index > 16 ? 1 : 0) -
-                        (index > 27 ? 1 : 0)];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                PlayerDetailsPage(player: player),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(player.photoUrl),
+                    Player player = players[_getPlayerIndex(index)];
+                    return MouseRegion(
+                      onEnter: (_) => setState(() => player.isHovered = true),
+                      onExit: (_) => setState(() => player.isHovered = false),
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PlayerDetailsPage(player: player),
                             ),
-                            title: Text(
-                              player.name,
-                              style: TextStyle(
-                                color: Colors.white,
+                          );
+                        },
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: player.isHovered
+                                ? Colors.white.withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(10),
+                            border: player.isHovered
+                                ? Border.all(color: Colors.white, width: 1)
+                                : null,
+                          ),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(player.photoUrl),
                               ),
-                            ),
+                              SizedBox(width: 20),
+                              Text(
+                                player.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 10),
-                        ],
+                        ),
                       ),
                     );
                   }
@@ -206,5 +191,29 @@ class PlayersPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildCategoryHeader(String categoryName) {
+    return Container(
+      margin: EdgeInsets.only(top: 20, bottom: 20),
+      padding: EdgeInsets.all(15.0),
+      color: Colors.white,
+      child: Text(
+        categoryName,
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+
+  int _getPlayerIndex(int index) {
+    return index -
+        1 -
+        (index > 4 ? 1 : 0) -
+        (index > 15 ? 1 : 0) -
+        (index > 28 ? 1 : 0);
   }
 }

@@ -9,7 +9,7 @@ class NewsPage extends StatelessWidget {
   Future<List<dynamic>> fetchUpcomingMatches() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/fixtures?team=96&next=10';
-    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473';
+    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
 
     final response = await http.get(
       Uri.parse(apiUrl),

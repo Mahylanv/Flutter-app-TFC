@@ -35,7 +35,7 @@ class PlayersPageService {
       queryParameters['search'] = search;
     }
 
-    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473';
+    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
 
     final Uri uri = Uri.parse(apiUrl).replace(queryParameters: queryParameters);
 

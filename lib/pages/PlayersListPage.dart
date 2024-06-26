@@ -19,7 +19,7 @@ class _PlayersListPageState extends State<PlayersListPage> {
 
   Future<PlayersResponseModel> fetchPlayers() async {
     final String apiUrl = 'https://api-football-v1.p.rapidapi.com/v2/players/squad/96/2023';
-    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473'; // Remplacer par votre clé d'API valide
+    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b'; // Remplacer par votre clé d'API valide
 
     final response = await http.get(
       Uri.parse(apiUrl),

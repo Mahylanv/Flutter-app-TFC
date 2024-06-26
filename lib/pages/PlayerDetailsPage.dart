@@ -12,7 +12,7 @@ class PlayerDetailsPage extends StatelessWidget {
   Future<List<Statistic>> fetchPlayerStatistics(int playerId) async {
     final String apiUrl =
         'https://v3.football.api-sports.io/players?id=$playerId&season=2023';
-    final String apiKey = 'c8eabf52ebd3704dec98cbda88516473';
+    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -34,20 +34,61 @@ class PlayerDetailsPage extends StatelessWidget {
     }
   }
 
-  Widget buildLeagueStatistics(String leagueName, Statistic firstStat) {
+  Widget buildLeagueStatistics(String leagueName, List<Statistic> statistics) {
+    // Trouver les statistiques pour la ligue spécifiée
+    var leagueStats = statistics.firstWhere(
+      (stat) => stat.leagueName == leagueName,
+      orElse: () => Statistic(
+        teamName: 'N/A',
+        leagueName: leagueName,
+        leagueCountry: 'N/A',
+        position: 'N/A',
+        appearances: 0,
+        lineups: 0,
+        minutes: 0,
+        goals: 0,
+        assists: 0,
+        yellowCards: 0,
+        redCards: 0,
+      ),
+    );
+
+    // Déterminer les paramètres visuels pour chaque ligue
+    Color backgroundColor;
+    Color textColor;
+    String title;
+
+    if (leagueName == 'Ligue 1') {
+      backgroundColor = Color(0xFF8B9512); // Exemple de couleur pour la Ligue 1
+      textColor = Colors.white;
+      title = 'Statistiques $leagueName';
+    } else if (leagueName == 'Coupe de France') {
+      backgroundColor = Color(0xFF1F5894);// Exemple de couleur pour la Coupe de France
+      textColor = Colors.white;
+      title = 'Statistiques $leagueName';
+    } else if (leagueName == 'UEFA Europa League') {
+      backgroundColor = Colors.orange; // Exemple de couleur pour l'UEFA Europa League
+      textColor = Colors.white;
+      title = 'Statistiques $leagueName';
+    } else {
+      backgroundColor = Colors.grey; // Couleur par défaut pour les autres ligues
+      textColor = Colors.white;
+      title = 'Statistics $leagueName';
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 36.0),
         Container(
-          color: Colors.white,
+          color: backgroundColor,
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Statistics $leagueName',
+            title,
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),
@@ -64,10 +105,10 @@ class PlayerDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  '${firstStat.minutes}',
+                  '${leagueStats.minutes}',
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               ],
@@ -81,10 +122,10 @@ class PlayerDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  '${firstStat.yellowCards}',
+                  '${leagueStats.yellowCards}',
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               ],
@@ -98,10 +139,10 @@ class PlayerDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  '${firstStat.redCards}',
+                  '${leagueStats.redCards}',
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               ],
@@ -115,10 +156,10 @@ class PlayerDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  '${firstStat.goals}',
+                  '${leagueStats.goals}',
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               ],
@@ -132,10 +173,10 @@ class PlayerDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  '${firstStat.assists}',
+                  '${leagueStats.assists}',
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               ],
@@ -149,35 +190,8 @@ class PlayerDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Container(
-          padding: EdgeInsets.only(left: 10, top: 30),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.white),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 90, bottom: 80),
-                  child: Image.asset(
-                    'assets/toulouse_logo.png',
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-                SizedBox(width: 20),
-                Image.asset(
-                  'assets/icon.png',
-                  height: 50,
-                  width: 50,
-                ),
-              ],
-            ),
-          ),
-        ),
+      appBar: AppBar(
+        title: Text('Statistiques Joueurs'),
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -206,7 +220,6 @@ class PlayerDetailsPage extends StatelessWidget {
               return Center(child: Text('No details available'));
             } else {
               var statistics = snapshot.data!;
-              var firstStat = statistics.first;
 
               return Center(
                 child: Container(
@@ -233,7 +246,7 @@ class PlayerDetailsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Matches Played: ${firstStat.appearances}',
+                                  'Matches Played: ${statistics.first.appearances}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,
@@ -241,7 +254,7 @@ class PlayerDetailsPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  'Position: ${firstStat.position}',
+                                  'Position: ${statistics.first.position}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,
@@ -249,7 +262,7 @@ class PlayerDetailsPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  'Country: ${firstStat.leagueCountry.substring(0, 3)}',
+                                  'Country: ${statistics.first.leagueCountry}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,
@@ -259,65 +272,62 @@ class PlayerDetailsPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        buildLeagueStatistics('Ligue 1', firstStat), // Exemple pour la ligue 1
-                        buildLeagueStatistics('Coupe de France', firstStat), // Exemple pour la ligue 1
+                        buildLeagueStatistics('Ligue 1', statistics),
+                        buildLeagueStatistics('Coupe de France', statistics),
+                        buildLeagueStatistics('UEFA Europa League', statistics),
                         SizedBox(height: 16.0),
-                        ...statistics
-                            .map((stat) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text('Team: ${stat.teamName}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('League: ${stat.leagueName}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Country: ${stat.leagueCountry}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Position: ${stat.position}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Appearances: ${stat.appearances}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Lineups: ${stat.lineups}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Minutes: ${stat.minutes}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Goals: ${stat.goals}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Assists: ${stat.assists}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Yellow Cards: ${stat.yellowCards}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                      Text('Red Cards: ${stat.redCards}',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white)),
-                                    ],
-                                  ),
-                                ))
-                            .toList(),
+                        ...statistics.map((stat) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          // child: Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   children: [
+                          //     Text('Team: ${stat.teamName}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('League: ${stat.leagueName}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Country: ${stat.leagueCountry}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Position: ${stat.position}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Appearances: ${stat.appearances}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Lineups: ${stat.lineups}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Minutes: ${stat.minutes}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Goals: ${stat.goals}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Assists: ${stat.assists}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Yellow Cards: ${stat.yellowCards}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //     Text('Red Cards: ${stat.redCards}',
+                          //         style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             color: Colors.white)),
+                          //   ],
+                          // ),
+                        )).toList(),
                       ],
                     ),
                   ),
