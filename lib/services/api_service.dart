@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>> fetchPlayerDetails(int leagueId, int season) async {
-  final String apiUrl = 'https://v3.football.api-sports.io/players?league=$leagueId&season=$season';
-  final String apiKey = 'ec8e2b63cd223b4bb0d30a2f865b4233';
+Future<Map<String, dynamic>> fetchPlayerDetails(
+    int leagueId, int season) async {
+  final String apiUrl =
+      'https://v3.football.api-sports.io/players?league=$leagueId&season=$season';
+  final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
 
   final response = await http.get(
     Uri.parse(apiUrl),

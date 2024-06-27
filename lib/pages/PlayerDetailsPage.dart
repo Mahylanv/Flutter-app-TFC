@@ -63,15 +63,18 @@ class PlayerDetailsPage extends StatelessWidget {
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else if (leagueName == 'Coupe de France') {
-      backgroundColor = Color(0xFF1F5894);// Exemple de couleur pour la Coupe de France
+      backgroundColor =
+          Color(0xFF1F5894); // Exemple de couleur pour la Coupe de France
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else if (leagueName == 'UEFA Europa League') {
-      backgroundColor = Colors.orange; // Exemple de couleur pour l'UEFA Europa League
+      backgroundColor =
+          Colors.orange; // Exemple de couleur pour l'UEFA Europa League
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else {
-      backgroundColor = Colors.grey; // Couleur par défaut pour les autres ligues
+      backgroundColor =
+          Colors.grey; // Couleur par défaut pour les autres ligues
       textColor = Colors.white;
       title = 'Statistics $leagueName';
     }
@@ -276,58 +279,61 @@ class PlayerDetailsPage extends StatelessWidget {
                         buildLeagueStatistics('Coupe de France', statistics),
                         buildLeagueStatistics('UEFA Europa League', statistics),
                         SizedBox(height: 16.0),
-                        ...statistics.map((stat) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          // child: Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.center,
-                          //   children: [
-                          //     Text('Team: ${stat.teamName}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('League: ${stat.leagueName}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Country: ${stat.leagueCountry}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Position: ${stat.position}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Appearances: ${stat.appearances}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Lineups: ${stat.lineups}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Minutes: ${stat.minutes}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Goals: ${stat.goals}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Assists: ${stat.assists}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Yellow Cards: ${stat.yellowCards}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //     Text('Red Cards: ${stat.redCards}',
-                          //         style: TextStyle(
-                          //             fontSize: 18.0,
-                          //             color: Colors.white)),
-                          //   ],
-                          // ),
-                        )).toList(),
+                        ...statistics
+                            .map((stat) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  // child: Column(
+                                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                                  //   children: [
+                                  //     Text('Team: ${stat.teamName}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('League: ${stat.leagueName}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Country: ${stat.leagueCountry}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Position: ${stat.position}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Appearances: ${stat.appearances}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Lineups: ${stat.lineups}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Minutes: ${stat.minutes}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Goals: ${stat.goals}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Assists: ${stat.assists}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Yellow Cards: ${stat.yellowCards}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //     Text('Red Cards: ${stat.redCards}',
+                                  //         style: TextStyle(
+                                  //             fontSize: 18.0,
+                                  //             color: Colors.white)),
+                                  //   ],
+                                  // ),
+                                ))
+                            .toList(),
                       ],
                     ),
                   ),
