@@ -28,7 +28,7 @@ class _PlayersPageState extends State<PlayersPage> {
   Future<List<Player>> fetchPlayers() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/players/squads?team=96';
-    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -59,10 +59,10 @@ class _PlayersPageState extends State<PlayersPage> {
 
         return players;
       } else {
-        throw Exception('Invalid JSON format or empty response');
+        throw Exception('Reponse invalide');
       }
     } else {
-      throw Exception('Failed to load players: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 
@@ -166,9 +166,9 @@ class _PlayersPageState extends State<PlayersPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(child: Text('Erreur: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No players found'));
+              return Center(child: Text('Pas de joueurs'));
             } else {
               return _buildPlayerList();
             }

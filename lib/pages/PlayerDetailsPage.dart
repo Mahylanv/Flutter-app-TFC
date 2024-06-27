@@ -12,7 +12,7 @@ class PlayerDetailsPage extends StatelessWidget {
   Future<List<Statistic>> fetchPlayerStatistics(int playerId) async {
     final String apiUrl =
         'https://v3.football.api-sports.io/players?id=$playerId&season=2023';
-    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -27,15 +27,14 @@ class PlayerDetailsPage extends StatelessWidget {
         var statisticsJson = jsonData['response'][0]['statistics'] as List;
         return statisticsJson.map((stat) => Statistic.fromJson(stat)).toList();
       } else {
-        throw Exception('No stats available for this player');
+        throw Exception('Aucunes infos sur ce joueur');
       }
     } else {
-      throw Exception('Failed to load player stats: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 
   Widget buildLeagueStatistics(String leagueName, List<Statistic> statistics) {
-    // Trouver les statistiques pour la ligue spécifiée
     var leagueStats = statistics.firstWhere(
       (stat) => stat.leagueName == leagueName,
       orElse: () => Statistic(
@@ -53,30 +52,26 @@ class PlayerDetailsPage extends StatelessWidget {
       ),
     );
 
-    // Déterminer les paramètres visuels pour chaque ligue
     Color backgroundColor;
     Color textColor;
     String title;
 
     if (leagueName == 'Ligue 1') {
-      backgroundColor = Color(0xFF8B9512); // Exemple de couleur pour la Ligue 1
+      backgroundColor = Color(0xFF8B9512);
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else if (leagueName == 'Coupe de France') {
-      backgroundColor =
-          Color(0xFF1F5894); // Exemple de couleur pour la Coupe de France
+      backgroundColor = Color(0xFF1F5894);
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else if (leagueName == 'UEFA Europa League') {
-      backgroundColor =
-          Colors.orange; // Exemple de couleur pour l'UEFA Europa League
+      backgroundColor = Colors.orange;
       textColor = Colors.white;
       title = 'Statistiques $leagueName';
     } else {
-      backgroundColor =
-          Colors.grey; // Couleur par défaut pour les autres ligues
+      backgroundColor = Colors.grey;
       textColor = Colors.white;
-      title = 'Statistics $leagueName';
+      title = 'Statistiques $leagueName';
     }
 
     return Column(
@@ -220,7 +215,7 @@ class PlayerDetailsPage extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No details available'));
+              return Center(child: Text('Pas d infos'));
             } else {
               var statistics = snapshot.data!;
 
@@ -249,7 +244,7 @@ class PlayerDetailsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Matches Played: ${statistics.first.appearances}',
+                                  'Matches Joués: ${statistics.first.appearances}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,
@@ -265,7 +260,7 @@ class PlayerDetailsPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  'Country: ${statistics.first.leagueCountry}',
+                                  'Nationalité: ${statistics.first.leagueCountry}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,

@@ -5,7 +5,7 @@ Future<Map<String, dynamic>> fetchPlayerDetails(
     int leagueId, int season) async {
   final String apiUrl =
       'https://v3.football.api-sports.io/players?league=$leagueId&season=$season';
-  final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+  final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
   final response = await http.get(
     Uri.parse(apiUrl),
@@ -18,6 +18,6 @@ Future<Map<String, dynamic>> fetchPlayerDetails(
     var jsonData = jsonDecode(response.body);
     return jsonData;
   } else {
-    throw Exception('Failed to load player details: ${response.statusCode}');
+    throw Exception('Erreur: ${response.statusCode}');
   }
 }

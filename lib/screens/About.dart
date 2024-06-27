@@ -20,9 +20,9 @@ class AboutPage extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: [0.0, 0.7, 1.0],
             colors: [
-              Color(0xFF0E0024), // 0% 0E0024
-              Color(0xFF410979), // 70% 410979
-              Color(0xFFFFFFFF), // 100% FFFFFF
+              Color(0xFF0E0024),
+              Color(0xFF410979),
+              Color(0xFFFFFFFF),
             ],
           ),
         ),

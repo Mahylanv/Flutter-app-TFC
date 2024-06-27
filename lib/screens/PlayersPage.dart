@@ -13,11 +13,8 @@ class PlayersPage extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text('Player 1'),
-            onTap: () {
-              // Navigation vers les détails du joueur
-            },
+            onTap: () {},
           ),
-          // Ajoutez d'autres ListTile pour les autres joueurs
         ],
       ),
     );

@@ -1,4 +1,3 @@
-// lib/models/statistic_model.dart
 class Statistic {
   final String teamName;
   final String leagueName;
@@ -28,10 +27,10 @@ class Statistic {
 
   factory Statistic.fromJson(Map<String, dynamic> json) {
     return Statistic(
-      teamName: json['team']['name'] ?? 'unknown',
-      leagueName: json['league']['name'] ?? 'unknown',
-      leagueCountry: json['league']['country'] ?? 'unknown',
-      position: json['games']['position'] ?? 'unknown',
+      teamName: json['team']['name'] ?? 'inconnu',
+      leagueName: json['league']['name'] ?? 'inconnu',
+      leagueCountry: json['league']['country'] ?? 'inconnu',
+      position: json['games']['position'] ?? 'inconnu',
       appearances: json['games']['appearences'] ?? 0,
       lineups: json['games']['lineups'] ?? 0,
       minutes: json['games']['minutes'] ?? 0,

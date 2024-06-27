@@ -23,20 +23,20 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> scheduleTestNotification() async {
     var scheduledDate = DateTime.now().add(Duration(seconds: 10));
-    print('Scheduling test notification');
+    print('Test');
     await _notificationService.scheduleNotification(
       id: 0,
       title: 'Test Notification',
-      body: 'This is a test notification to verify the setup.',
+      body: 'Test',
       scheduledDate: scheduledDate,
     );
-    print('Test notification scheduled');
+    print('Test notification');
   }
 
   Future<dynamic> fetchNextMatch() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/fixtures?team=96&next=1';
-    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       var jsonData = jsonDecode(response.body);
       return jsonData['response'][0];
     } else {
-      throw Exception('Failed to load next match: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 
@@ -103,9 +103,9 @@ class _HomePageState extends State<HomePage> {
             end: Alignment.bottomCenter,
             stops: [0.0, 0.7, 1.0],
             colors: [
-              Color(0xFF0E0024), // 0% 0E0024
-              Color(0xFF410979), // 70% 410979
-              Color(0xFFFFFFFF), // 100% FFFFFF
+              Color(0xFF0E0024),
+              Color(0xFF410979),
+              Color(0xFFFFFFFF),
             ],
           ),
         ),
@@ -115,9 +115,9 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(child: Text('Erreur: ${snapshot.error}'));
             } else if (!snapshot.hasData) {
-              return Center(child: Text('No upcoming match found'));
+              return Center(child: Text('Erreur'));
             } else {
               var match = snapshot.data;
               var homeTeam = match['teams']['home'];

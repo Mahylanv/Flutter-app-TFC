@@ -34,7 +34,7 @@ class PlayersPageService {
       queryParameters['search'] = search;
     }
 
-    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final Uri uri = Uri.parse(apiUrl).replace(queryParameters: queryParameters);
 
@@ -62,10 +62,10 @@ class PlayersPageService {
 
         return players;
       } else {
-        throw Exception('Invalid JSON format or empty response');
+        throw Exception('Reponse invalide');
       }
     } else {
-      throw Exception('Failed to load players: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 }

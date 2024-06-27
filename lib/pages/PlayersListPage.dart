@@ -20,8 +20,7 @@ class _PlayersListPageState extends State<PlayersListPage> {
   Future<PlayersResponseModel> fetchPlayers() async {
     final String apiUrl =
         'https://api-football-v1.p.rapidapi.com/v2/players/squad/96/2023';
-    final String apiKey =
-        'a6cbb9d95e6072200a683bfc60cf4f9b'; // Remplacer par votre clé d'API valide
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -35,7 +34,7 @@ class _PlayersListPageState extends State<PlayersListPage> {
       var jsonData = jsonDecode(response.body);
       return PlayersResponseModel.fromJson(jsonData);
     } else {
-      throw Exception('Failed to load players: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 

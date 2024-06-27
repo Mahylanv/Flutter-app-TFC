@@ -1,5 +1,3 @@
-// player_model.dart
-
 class PlayerModel {
   final int id;
   final String name;
@@ -20,8 +18,6 @@ class PlayerModel {
   }
 }
 
-// players_response_model.dart
-
 class PlayersResponseModel {
   final List<PlayerModel> players;
 
@@ -30,7 +26,8 @@ class PlayersResponseModel {
   factory PlayersResponseModel.fromJson(Map<String, dynamic> json) {
     List<PlayerModel> players = [];
     if (json['api']['players'] != null) {
-      players = List<PlayerModel>.from(json['api']['players'].map((player) => PlayerModel.fromJson(player)));
+      players = List<PlayerModel>.from(
+          json['api']['players'].map((player) => PlayerModel.fromJson(player)));
     }
     return PlayersResponseModel(players: players);
   }

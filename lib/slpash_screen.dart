@@ -1,3 +1,4 @@
+// splash_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'nav_bar.dart'; // Assurez-vous que le chemin d'accès à votre nav_bar est correct
@@ -13,7 +14,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => NavBar()),
+        MaterialPageRoute(
+            builder: (_) => NavBar(initialIndex: 1)), // 1 pour HomePage
       );
     });
   }
@@ -40,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             children: <Widget>[
               Image.asset(
                 'assets/toulouse_logo.png',
-                height: 180, // Réduisez la hauteur de l'image
+                height: 180,
               ),
               SizedBox(height: 20),
               CircularProgressIndicator(),

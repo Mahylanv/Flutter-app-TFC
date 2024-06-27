@@ -2,15 +2,15 @@ class Player {
   final int id;
   final String name;
   final String photoUrl;
-  final String position; // Ajoutez cette ligne pour définir la position
-  bool isHovered; // Champ pour suivre l'état de survol
+  final String position;
+  bool isHovered;
 
   Player({
     required this.id,
     required this.name,
     required this.photoUrl,
-    required this.position, // Ajoutez cette ligne pour initialiser la position
-    this.isHovered = false, // Initialisez-le à false par défaut
+    required this.position,
+    this.isHovered = false,
   });
 
   factory Player.fromJson(Map<String, dynamic> json) {
@@ -18,9 +18,8 @@ class Player {
       id: json['id'] ?? 0,
       name: json['name'],
       photoUrl: json['photo'],
-      position: json[
-          'position'], // Ajoutez cette ligne pour récupérer la position à partir du JSON
-      isHovered: false, // Assurez-vous de l'initialiser ici si nécessaire
+      position: json['position'],
+      isHovered: false,
     );
   }
 }

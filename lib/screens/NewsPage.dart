@@ -10,7 +10,7 @@ class NewsPage extends StatelessWidget {
   Future<List<dynamic>> fetchUpcomingMatches() async {
     final String apiUrl =
         'https://v3.football.api-sports.io/fixtures?team=96&next=10';
-    final String apiKey = 'a6cbb9d95e6072200a683bfc60cf4f9b';
+    final String apiKey = '6473ccfb5e7338ec79d8cb6e6fd4a360';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -24,7 +24,7 @@ class NewsPage extends StatelessWidget {
       var jsonData = jsonDecode(response.body);
       return jsonData['response'];
     } else {
-      throw Exception('Failed to load matches: ${response.statusCode}');
+      throw Exception('Erreur: ${response.statusCode}');
     }
   }
 
@@ -77,9 +77,9 @@ class NewsPage extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: [0.0, 0.7, 1.0],
             colors: [
-              Color(0xFF0E0024), // 0% 0E0024
-              Color(0xFF410979), // 70% 410979
-              Color(0xFFFFFFFF), // 100% FFFFFF
+              Color(0xFF0E0024),
+              Color(0xFF410979),
+              Color(0xFFFFFFFF),
             ],
           ),
         ),
@@ -89,9 +89,9 @@ class NewsPage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(child: Text('Erreur: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No upcoming matches found'));
+              return Center(child: Text('Pas de matchs'));
             } else {
               List<dynamic> matches = snapshot.data!;
               return ListView.builder(

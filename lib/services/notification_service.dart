@@ -17,7 +17,6 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    // Initialize timezone
     tz.initializeTimeZones();
   }
 
@@ -27,7 +26,7 @@ class NotificationService {
     required String body,
     required DateTime scheduledDate,
   }) async {
-    print('Scheduling notification at $scheduledDate');
+    print(' notification  $scheduledDate');
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
@@ -35,9 +34,9 @@ class NotificationService {
       tz.TZDateTime.from(scheduledDate, tz.local),
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'your channel id',
-          'your channel name',
-          channelDescription: 'your channel description',
+          'test',
+          'test',
+          channelDescription: 'description',
           importance: Importance.max,
           priority: Priority.high,
         ),
@@ -47,6 +46,6 @@ class NotificationService {
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
-    print('Notification scheduled');
+    print('Notification');
   }
 }

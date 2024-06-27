@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'screens/HomePage.dart';
 import 'pages/PlayersPage.dart';
-// import 'screens/CoachPage.dart';
 import 'screens/NewsPage.dart';
 
 class NavBar extends StatefulWidget {
+  final int initialIndex;
+
+  NavBar({this.initialIndex = 2});
+
   @override
   _NavBarState createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedIndex = 2; // Default selected index is Home (middle tab)
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   static const List<Widget> _pages = <Widget>[
     PlayersPage(),

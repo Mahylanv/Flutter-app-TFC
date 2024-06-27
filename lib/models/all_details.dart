@@ -1,4 +1,3 @@
-// lib/models/player_model.dart
 class Player {
   final int id;
   final String name;
@@ -34,16 +33,16 @@ class Player {
     var player = json['player'];
     return Player(
       id: player['id'] ?? 0,
-      name: player['name'] ?? 'unknown',
-      firstname: player['firstname'] ?? 'unknown',
-      lastname: player['lastname'] ?? 'unknown',
+      name: player['name'] ?? 'inconnu',
+      firstname: player['firstname'] ?? 'inconnu',
+      lastname: player['lastname'] ?? 'inconnu',
       age: player['age'] ?? 0,
-      birthDate: player['birth']['date'] ?? 'unknown',
-      birthPlace: player['birth']['place'] ?? 'unknown',
-      birthCountry: player['birth']['country'] ?? 'unknown',
-      nationality: player['nationality'] ?? 'unknown',
-      height: player['height'] ?? 'unknown',
-      weight: player['weight'] ?? 'unknown',
+      birthDate: player['birth']['date'] ?? 'inconnu',
+      birthPlace: player['birth']['place'] ?? 'inconnu',
+      birthCountry: player['birth']['country'] ?? 'inconnu',
+      nationality: player['nationality'] ?? 'inconnu',
+      height: player['height'] ?? 'inconnu',
+      weight: player['weight'] ?? 'inconnu',
       injured: player['injured'] ?? false,
       photoUrl: player['photo'] ?? 'https://via.placeholder.com/150',
     );
