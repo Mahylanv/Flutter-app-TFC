@@ -1,3 +1,4 @@
+
 A new Flutter project. Figma : https://www.figma.com/design/cw2m5Jkbze35DJZ9Ljhzxv/Untitled?node-id=0-1&t=pK1tRz8IGO1oUFdp-0 Nom : Téfécé
 
 Présentation : Téfécé est une application mobile dédiée aux passionnés de l'équipe de France de football. Elle offre une interface intuitive et élégante permettant aux utilisateurs de suivre de près les joueurs de l'équipe nationale, de lire les dernières actualités footballistiques. Fonctionnalités Clés :
@@ -9,3 +10,4 @@ Une page dédiée aux dernières nouvelles et mises à jour sur le monde du foot
 Objectif : Téfécé* vise à offrir aux fans de l'équipe de France de football une plateforme interactive et riche en informations. L'application permet de suivre de près les performances des joueurs, de se tenir informé des dernières actualités du football, et de ressentir une connexion plus profonde avec l'équipe nationale.
 
 Avantages pour les Utilisateurs : Accès instantané aux informations des joueurs : Statistiques détaillées et historiques de carrière. Actualités à jour : Toutes les dernières nouvelles du monde du football à portée de main. Interface conviviale : Navigation intuitive et design réactif pour une expérience utilisateur optimale. Téfécé est l'outil parfait pour tout passionné de football désireux de rester connecté avec l'équipe de France et de profiter d'une source fiable d'informations footballistiques.
+
