@@ -9,7 +9,7 @@ Screns Post Mortem : https://www.canva.com/design/DAGJXTAqzAE/5cQOKtHRjOZqrxkJ7f
 
 Nom : Téfécé
 
-Clé API : 6473ccfb5e7338ec79d8cb6e6fd4a360
+Clé API : 7b777ea0df15f674655028ec560ad657
 
 Présentation : Téfécé est une application mobile dédiée aux passionnés de l'équipe de France de football. Elle offre une interface intuitive et élégante permettant aux utilisateurs de suivre de près les joueurs de l'équipe nationale, de lire les dernières actualités footballistiques.
 
